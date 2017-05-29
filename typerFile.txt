@@ -1,0 +1,182 @@
+using System;
+using System.Collections.Generic;
+
+namespace MathExtended {
+    /// <summary>
+    /// Coordinate pair using two values: (x, y).
+    /// </summary>
+    public struct Coordiante2D {
+        #region Public Fields
+        /// <summary>
+        /// The X-axis value of the coordinate pair.
+        /// </summary>
+        public double x;
+        /// <summary>
+        /// The Y-axis value of the coordinate pair.
+        /// </summary>
+        public double y;
+        #endregion Public Fields
+
+        #region Constructors
+        public Coordiante2D (double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+        #endregion Constructors
+
+        #region Public Methods
+        /// <summary>
+        /// Adds two coorinates together.
+        /// </summary>
+        public static Coordiante2D Add (Coordiante2D coordinate1, Coordiante2D coordinate2) {
+            coordinate1.x += coordinate2.x;
+            coordinate1.y += coordinate2.y;
+            return (coordinate1);
+        }
+        /// <summary>
+        /// Subtracts coordinate2 from coordinate1: (x1 - x2, y1 - y2).
+        /// </summary>
+        public static Coordiante2D Subtract (Coordiante2D coordinate1, Coordiante2D coordinate2) {
+            coordinate1.x -= coordinate2.x;
+            coordinate1.y -= coordinate2.y;
+            return (coordinate1);
+        }
+        /// <summary>
+        /// Finds the magnitude of the distance between two coordinates.
+        /// </summary>
+        public static double DistanceBetween (Coordiante2D coordinate1, Coordiante2D coordinate2) {
+            return ((double) Math.Sqrt(Math.Pow(coordinate1.x - coordinate2.x, 2) + Math.Pow(coordinate1.y - coordinate2.y, 2)));
+        }
+        /// <summary>
+        /// Finds the slope of the line crossing through two coordinates.
+        /// </summary>
+        public static double Slope (Coordiante2D coordinate1, Coordiante2D coordinate2) {
+            return ((double) (coordinate2.y - coordinate1.y) / (coordinate2.x - coordinate1.x));
+        }
+        #endregion Public Methods
+
+        #region Operators
+        public static Coordiante2D operator +(Coordiante2D coordinate1, Coordiante2D coordinate2) {
+            coordinate1.x += coordinate2.x;
+            coordinate1.y += coordinate2.y;
+            return (coordinate1);
+        }
+        public static Coordiante2D operator -(Coordiante2D coordinate1, Coordiante2D coordinate2) {
+            coordinate1.x -= coordinate2.x;
+            coordinate1.y -= coordinate2.y;
+            return (coordinate1);
+        }
+        public static Coordiante2D operator -(Coordiante2D coordinate1) {
+            coordinate1.x = -coordinate1.x;
+            coordinate1.y = -coordinate1.y;
+            return (coordinate1);
+        }
+        #endregion Operators
+    }
+
+    /// <summary>
+    /// Rectangle using a vector for the top left anchor point and a vector for the size of the rectangle itself.
+    /// </summary>
+    public struct Rectangle {
+        #region Public Fields
+        /// <summary>
+        /// X value of the anchor point in 2D plane dictating where the top left corner will be locked.
+        /// </summary>
+        public double anchorX;
+        /// <summary>
+        /// Y value of the anchor point in 2D plane dictating where the top left corner will be locked.
+        /// </summary>
+        public double anchorY;
+        /// <summary>
+        /// Horizontal size of the rectangle.
+        /// </summary>
+        public double sizeX;
+        /// <summary>
+        /// Vertical size of the rectangle.
+        /// </summary>
+        public double sizeY;
+        #endregion Public Fields
+
+        #region Constructors
+        public Rectangle (double anchorX, double anchorY, double sizeX, double sizeY) {
+            this.anchorY = anchorY;
+            this.anchorX = anchorX;
+            this.sizeX = sizeX;
+            this.sizeY = sizeY;
+        }
+        public Rectangle (Coordiante2D anchorTopLeft, double sizeX, double sizeY) {
+            this.anchorX = anchorTopLeft.x;
+            this.anchorY = anchorTopLeft.y;
+            this.sizeX = sizeX;
+            this.sizeY = sizeY;
+        }
+        #endregion Constructors
+
+        #region Public Methods
+        /// <summary>
+        /// Move the anchor point of the rectangle by vector deltaPosition.
+        /// </summary>
+        public static Rectangle MoveBy (Rectangle rectangle, Coordiante2D deltaPosition) {
+            rectangle.anchorX += deltaPosition.x;
+            rectangle.anchorY += deltaPosition.y;
+            return (rectangle);
+        }
+        /// <summary>
+        /// Move the anchor point of the rectangle by vector (deltaPositionX, deltaPositionY).
+        /// </summary>
+        public static Rectangle MoveBy (Rectangle rectangle, double deltaPositionX, double deltaPositionY) {
+            rectangle.anchorX += deltaPositionX;
+            rectangle.anchorY += deltaPositionY;
+            return (rectangle);
+        }
+        /// <summary>
+        /// Move the anchor point of the rectangle by vector newPosition.
+        /// </summary>
+        public static Rectangle MoveTo (Rectangle rectangle, Coordiante2D newPosition) {
+            rectangle.anchorX += newPosition.x;
+            rectangle.anchorY += newPosition.y;
+            return (rectangle);
+        }
+        /// <summary>
+        /// Move the anchor point of the rectangle by vector (newPositionX, newPositionY).
+        /// </summary>
+        public static Rectangle MoveTo (Rectangle rectangle, double newPositionX, double newPositionY) {
+            rectangle.anchorX += newPositionX;
+            rectangle.anchorY += newPositionY;
+            return (rectangle);
+        }
+        /// <summary>
+        /// Changes the size of the rectangle by deltaSize.
+        /// </summary>
+        public static Rectangle SizeBy (Rectangle rectangle, Coordiante2D deltaSize) {
+            rectangle.sizeX += deltaSize.x;
+            rectangle.sizeY += deltaSize.y;
+            return (rectangle);
+        }
+        /// <summary>
+        /// Changes the size of the rectangle by (deltaSizeX, deltaSizeY).
+        /// </summary>
+        public static Rectangle SizeBy (Rectangle rectangle, double deltaSizeX, double deltaSizeY) {
+            rectangle.sizeX += deltaSizeX;
+            rectangle.sizeY += deltaSizeY;
+            return (rectangle);
+        }
+        /// <summary>
+        /// Changes the size of the rectangle to the new size newSize.
+        /// </summary>
+        public static Rectangle SizeTo (Rectangle rectangle, Coordiante2D newSize) {
+            rectangle.sizeX = newSize.x;
+            rectangle.sizeY = newSize.y;
+            return (rectangle);
+        }
+        /// <summary>
+        /// Changes the size of the rectangle to the new size (newSizeX, newSizeY).
+        /// </summary>
+        public static Rectangle SizeTo (Rectangle rectangle, double newSizeX, double newSizeY) {
+            rectangle.sizeX = newSizeX;
+            rectangle.sizeY = newSizeY;
+            return (rectangle);
+        }
+        #endregion Public Methods
+    }
+}
