@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "Exo";
+    src: url("../fonts/Exo-Regular.otf");
+}
+@font-face {
+    font-family: "ExoExtraLight";
+    src: url("../fonts/Exo-ExtraLight.otf");
+}
+
 body {
     padding: 0px;
     margin: 0px;
@@ -23,10 +32,10 @@ body {
     top: 40%;
 }
 #title {
-    font-family: "Arial";
-    font-size: 70pt;
+    font-family: "Exo";
+    font-size: 60pt;
 }
 #subtitle {
-    font-family: "Arial";
+    font-family: "ExoExtraLight";
     font-size: 40pt;
 }
