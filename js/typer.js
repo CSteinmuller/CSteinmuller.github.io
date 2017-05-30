@@ -4,19 +4,6 @@ var maxIndex;           // The maximum index of typerCode
 var letterTiming = 80;  // Time it takes to type 1 character
 var typerFile = "typerFile.txt";    // Name of the file containing code to write
 
-/******************************************************************************************
-**
-**  Script Initialization
-**
-*******************************************************************************************/
-window.onload = function () {
-    // Initialize page element variables
-    codeBox = document.getElementById ("frame_background");
-    
-    // Load code to type
-    initializeTyperCode ();
-}
-
 /*******************************************************************************************
 **
 **  Load code typer text.
