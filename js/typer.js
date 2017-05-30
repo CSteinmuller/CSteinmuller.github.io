@@ -80,9 +80,11 @@ function type () {
     setInterval (typeHelper, letterTiming);
 }
 function typeHelper () {
-    // Reset character index if we go over the maximum
+    // Reset character index and blank the window if we go over the maximum
     if (typerIndex >= maxIndex) {
-        typerIndex = 0;
+        codeBox.innerHTML = "";
+        // Reset to -1 so as to have it = to 0 by the end of this function
+        typerIndex = -1;
     }
     
     // Add a line break (</br>) if a newline is found
