@@ -90,6 +90,9 @@ function typeHelper () {
     // Add a line break (</br>) if a newline is found
     if (typerCode [typerIndex] == '\n') {
         codeBox.innerHTML += "</br>";
+    // Add a non-breaking space (&nbsp;) if a space is found
+    } else if (typerCode [typerIndex] == ' ') {
+        codeBox.innerHTML += "&nbsp;";
     // Else: just copy the letter @ typerIndex
     } else {
         codeBox.innerHTML += typerCode [typerIndex];
