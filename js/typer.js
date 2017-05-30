@@ -10,60 +10,90 @@ var typerFile = "typerFile.txt";    // Name of the file containing code to write
 **
 *******************************************************************************************/
 window.onload = function () {
-    // Init page element variables
+    // Initialize page element variables
     codeBox = document.getElementById ("frame_background");
     
-    // load code to type
+    // Load code to type
     initializeTyperCode ();
-    console.log ("Code initialized.");
 }
 
+/*******************************************************************************************
+**
+**  Load code typer text.
+**
+**  Requests the code file via HTTP request using file name typerFile. Uses callback
+**  initializeTyperCode_handle () to process response.
+**
+********************************************************************************************/
 function initializeTyperCode () {
+    // Create new request
     var resp = new XMLHttpRequest ();
     
+    // Event trigger on response answer received or timeout
     resp.onreadystatechange = function() {
+        // Answer received 
         if (resp.readyState == 4) {
-            // The request is done; did it work?
+            // Success
             if (resp.status == 200) {
-                // ***Yes, use `resp.responseText` here***
+                // Send response text to helper
                 initializeTyperCode_handle (resp.responseText);
+            // Fail
             } else {
-                // ***No, tell the callback the call failed***
+                // Send null (failure) to helper
                 initializeTyperCode_handle (null);
             }
         }
     };
     
+    // Send request
     resp.open ("GET", typerFile);
     resp.send ();
 }
-
 function initializeTyperCode_handle (data) {
+    // Check for null input
     if (!data) {
+        // Failure; exit
         return;
     }
     
+    // Place text into typerCode global
     typerCode = data;
     
-    type ()
+    // Start typing the text
+    type ();
 }
 
+/*******************************************************************************************
+**
+**  Type out the code file.
+**
+**  Set up the intervals at which the background will be updated. typeHelper will process
+**  and update the innerHTML (text) of the background division element.
+**
+********************************************************************************************/
 function type () {
+    // Find the maximum number of characters in code file so as not to go over
     maxIndex = typerCode.length;
 
+    // Set up typeHelper call intervals to be letterTiming, or the timing between each
+    // letter being printed
     setInterval (typeHelper, letterTiming);
 }
 function typeHelper () {
+    // Reset character index if we go over the maximum
     if (typerIndex >= maxIndex) {
         typerIndex = 0;
     }
     
+    // Add a line break (</br>) if a newline is found
     if (typerCode [typerIndex] == '\n') {
         codeBox.innerHTML += "</br>";
+    // Else: just copy the letter @ typerIndex
     } else {
         codeBox.innerHTML += typerCode [typerIndex];
     }
     typerIndex++;
     
+    // Keep division scrolled to the bottom of available scrollbar space
     codeBox.scrollTop = codeBox.scrollHeight;
 }

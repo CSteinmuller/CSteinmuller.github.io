@@ -1,3 +1,4 @@
+/* Add custom fonts */
 @font-face {
     font-family: "Exo";
     src: url("../fonts/Exo-Regular.otf");
@@ -13,6 +14,7 @@ body {
     background-color: black;
 }
 
+/* The background (code typer) portion */
 #frame_background {
     position: fixed;
     width: 100%;
@@ -25,6 +27,7 @@ body {
     pointer-events: none;
 }
 
+/* The foreground portion */
 #title_box {
     position: absolute;
     text-align: center;
