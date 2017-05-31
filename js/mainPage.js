@@ -3,6 +3,7 @@ var pages = new Array ();
 var screenHeight = window.innerHeight.toString () + "px";
 var screenWidth = window.innerWidth.toString () + "px";
 var pageIndex = 1;
+var muteWheelListener = false;
 
 /******************************************************************************************
 **
@@ -29,20 +30,31 @@ window.onload = function () {
 }
 
 window.addEventListener('wheel', function(e) {
-    if (e.deltaY < 0) {
+    if (e.deltaY < 0 && !muteWheelListener) {
         console.log('scrolling up. Index: ' + pageIndex);
         if (pageIndex != 1) {
             pages [pageIndex].style.height = "0px";
             pages [pageIndex - 1].style.height = screenHeight;
             pageIndex--;
+            
+            // Mute future mouse wheel events until the current window has finished expanding
+            muteWheelListener = true;
+            setTimeout (muteListener, 1000);
         }
-    }
-    if (e.deltaY > 0) {
+    } else if (e.deltaY > 0 && !muteWheelListener) {
         console.log('scrolling down. Index: ' + pageIndex);
         if (pageIndex != 3) {
             pages [pageIndex].style.height = "0px";
             pages [pageIndex + 1].style.height = screenHeight;
             pageIndex++;
+            
+            // Mute future mouse wheel events until the current window has finished expanding
+            muteWheelListener = true;
+            setTimeout (muteListener, 1000);
         }
     }
 });
+
+function muteListener () {
+    muteWheelListener = false;
+}
